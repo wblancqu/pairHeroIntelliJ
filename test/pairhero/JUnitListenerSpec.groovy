@@ -1,10 +1,13 @@
 package pairhero
 
-import com.intellij.execution.testframework.AbstractTestProxy
+/*import com.intellij.execution.testframework.AbstractTestProxy
+import pairhero.intellij.listener.TestExecutionListener
+import pairhero.intellij.listener.TestExecutionListener
+import pairhero.intellij.listener.TestExecutionListener
 import spock.lang.Specification
 
 class JUnitListenerSpec extends Specification {
-	JUnitListener jUnitListener = new JUnitListener();
+	TestExecutionListener jUnitListener = new TestExecutionListener();
 
 	def "Given the game is stopped, previous test status should be cleared after current tests finish"() {
 		given:
@@ -106,4 +109,4 @@ class JUnitListenerSpec extends Specification {
 		jUnitListener.previousTestPassed = null
 		gameIsOnGoing()
 	}
-}
+}*/
