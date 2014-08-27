@@ -34,7 +34,7 @@ public class ExecutedTest {
         passed = true;
     }
 
-    public void broke() {
+    public void broken() {
         passed = false;
     }
 }

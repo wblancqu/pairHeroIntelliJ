@@ -18,6 +18,8 @@ public class MockTestProxyBuilder {
     private TestClassName className;
     private Map<TestMethodName, Boolean> tests = newHashMap();
 
+    private MockTestProxyBuilder() {}
+
     public static MockTestProxyBuilder aTestClass() {
         return new MockTestProxyBuilder();
     }

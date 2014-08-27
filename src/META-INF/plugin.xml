@@ -24,5 +24,6 @@
         <refactoring.helper implementation="pairhero.intellij.listener.RefactorListener"/>
         <applicationService serviceInterface="pairhero.event.EventBus" serviceImplementation="pairhero.event.EventBus" />
         <applicationService serviceInterface="pairhero.test.event.TestExecutionFinishedFactory" serviceImplementation="pairhero.test.event.TestExecutionFinishedFactory" />
+        <applicationService serviceInterface="pairhero.test.ExecutedTestStore" serviceImplementation="pairhero.test.ExecutedTestStore"/>
     </extensions>
 </idea-plugin>

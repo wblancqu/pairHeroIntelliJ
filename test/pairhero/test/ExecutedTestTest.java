@@ -34,7 +34,7 @@ public class ExecutedTestTest extends AbstractTest {
     public void broke() {
         assertThat(test.isBroken()).isFalse();
 
-        test.broke();
+        test.broken();
 
         assertThat(test.isBroken()).isTrue();
     }

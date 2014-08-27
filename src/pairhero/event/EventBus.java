@@ -1,10 +1,21 @@
 package pairhero.event;
 
-import org.apache.commons.lang.NotImplementedException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EventBus {
 
+    private List<Listener> listeners = new ArrayList<Listener>();
+
     public void post(Event event) {
-        throw new NotImplementedException();
+        for (Listener listener : listeners) {
+            if (listener.canHandle(event)) {
+                listener.handle(event);
+            }
+        }
+    }
+
+    public void register(Listener listener) {
+        listeners.add(listener);
     }
 }
