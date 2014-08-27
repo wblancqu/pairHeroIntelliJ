@@ -1,12 +1,13 @@
-package pairhero.views;
+package pairhero.client.view;
 
 import com.intellij.openapi.ui.DialogWrapper;
 import java.awt.*;
 import javax.swing.*;
 import org.jetbrains.annotations.Nullable;
 
+import static pairhero.client.view.Icons.anIcon;
+
 public class StartDialog extends DialogWrapper {
-	public static final String ICONS_PATH = "/pairhero/icons/";
 
 	private String playerOneName;
 	private String playerTwoName;
@@ -63,7 +64,7 @@ public class StartDialog extends DialogWrapper {
 	}
 
 	private void showBarSeparation(JComponent composite) {
-		composite.add(new JLabel(getImageIcon("divbar")));
+		composite.add(new JLabel(anIcon("divbar")));
 	}
 
 	public void buttonPressed(int dialogExitCode) {
@@ -92,10 +93,6 @@ public class StartDialog extends DialogWrapper {
 	}
 
 	private void showLogo(JComponent composite) {
-		composite.add(new JLabel(getImageIcon("logo")));
-	}
-
-	private ImageIcon getImageIcon(String imageName) {
-		return new ImageIcon(getClass().getResource(ICONS_PATH + imageName + ".png"));
+		composite.add(new JLabel(anIcon("logo")));
 	}
 }

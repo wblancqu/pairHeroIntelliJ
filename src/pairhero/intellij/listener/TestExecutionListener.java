@@ -17,14 +17,14 @@ public class TestExecutionListener extends TestStatusListener {
     }
 
     private EventBus eventBus() {
-        if(eventBus == null) {
+        if (eventBus == null) {
             eventBus = ServiceManager.getService(EventBus.class);
         }
         return eventBus;
     }
 
     private TestExecutionFinishedFactory factory() {
-        if(factory == null) {
+        if (factory == null) {
             factory = ServiceManager.getService(TestExecutionFinishedFactory.class);
         }
         return factory;

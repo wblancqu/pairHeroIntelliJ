@@ -2,10 +2,14 @@ package pairhero.game;
 
 import java.awt.*;
 import javax.swing.*;
+
+import pairhero.client.view.Icons;
 import pairhero.time.TimeFormatter;
 
+import static pairhero.client.view.Icons.anIcon;
+
 public class Programmer {
-	public static final String ICONS_PATH = "/pairhero/icons/";
+
 	private static Color DRIVER_COLOR = new Color(58, 170, 53);
 	private static Color OBSERVER_COLOR = new Color(218, 218, 218);
 
@@ -28,10 +32,6 @@ public class Programmer {
 		this.avatar = avatar;
 		this.roleLabel = roleLabel;
 		this.timeAtKeyboardLabel = timeAtKeyboardLabel;
-	}
-
-	private ImageIcon getImageIcon(String imageName) {
-		return new ImageIcon(getClass().getResource(ICONS_PATH + imageName + ".png"));
 	}
 
 	public void drive() {
@@ -65,10 +65,10 @@ public class Programmer {
 
 	void updateRole(final Role role) {
 		if (role.equals(Role.Driving)) {
-			roleLabel.setIcon(getImageIcon("green-keyboard"));
+			roleLabel.setIcon(anIcon("green-keyboard"));
 			panel.setBackground(DRIVER_COLOR);
 		} else {
-			roleLabel.setIcon(getImageIcon("red-keyboard"));
+			roleLabel.setIcon(anIcon("red-keyboard"));
 			panel.setBackground(OBSERVER_COLOR);
 		}
 	}
@@ -83,6 +83,6 @@ public class Programmer {
 	}
 
 	public void setAvatar(final String avatarImage) {
-		avatar.setIcon(getImageIcon(avatarImage));
+		avatar.setIcon(anIcon(avatarImage));
 	}
 }

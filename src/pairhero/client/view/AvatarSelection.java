@@ -1,12 +1,14 @@
-package pairhero.views;
+package pairhero.client.view;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+import static pairhero.client.view.Icons.anIcon;
+
 public class AvatarSelection {
-	public static final String ICONS_PATH = "/pairhero/icons/";
+
 	private JButton explorator;
 	private JButton king;
 	private JButton robin;
@@ -21,19 +23,19 @@ public class AvatarSelection {
 		composite.add(group);
 		group.setLayout(new GridLayout(1, 4));
 
-		explorator = new JButton(getImageIcon("explorator"));
+		explorator = new JButton(anIcon("explorator"));
 		explorator.addActionListener(listener);
 		group.add(explorator);
 
-		king = new JButton(getImageIcon("king"));
+		king = new JButton(anIcon("king"));
 		king.addActionListener(listener);
 		group.add(king);
 
-		robin = new JButton(getImageIcon("robin"));
+		robin = new JButton(anIcon("robin"));
 		robin.addActionListener(listener);
 		group.add(robin);
 
-		wizard = new JButton(getImageIcon("wizard"));
+		wizard = new JButton(anIcon("wizard"));
 		wizard.addActionListener(listener);
 		group.add(wizard);
 	}
@@ -71,9 +73,5 @@ public class AvatarSelection {
 		}
 
 		return "no-avatar";
-	}
-
-	private ImageIcon getImageIcon(String imageName) {
-		return new ImageIcon(getClass().getResource(ICONS_PATH + imageName + ".png"));
 	}
 }

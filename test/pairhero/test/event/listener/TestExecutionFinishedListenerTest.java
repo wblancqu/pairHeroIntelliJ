@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.unitils.inject.annotation.InjectIntoByType;
 import org.unitils.inject.annotation.TestedObject;
 import pairhero.AbstractTest;
+import pairhero.event.Event;
 import pairhero.event.EventBus;
 import pairhero.test.ExecutedTest;
 import pairhero.test.ExecutedTestStore;
@@ -15,8 +16,11 @@ import pairhero.test.event.TestBroken;
 import pairhero.test.event.TestExecutionFinished;
 import pairhero.test.event.TestResolved;
 
+import java.util.ArrayList;
+
 import static com.google.common.base.Optional.of;
 import static com.google.common.collect.Lists.newArrayList;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -110,5 +114,15 @@ public class TestExecutionFinishedListenerTest extends AbstractTest {
 
         verify(test).broken();
         verify(eventBus).post(any(TestBroken.class));
+    }
+
+    @Test
+    public void canHandle() {
+        assertThat(listener.canHandle(new TestExecutionFinished(new ArrayList<ExecutedTest>()))).isTrue();
+    }
+
+    @Test
+    public void cantHandle() {
+        assertThat(listener.canHandle(new Event(){})).isFalse();
     }
 }

@@ -5,7 +5,9 @@ import com.intellij.openapi.components.ServiceManager;
 import org.jetbrains.annotations.NotNull;
 import pairhero.event.EventBus;
 import pairhero.intellij.listener.TestExecutionListener;
+import pairhero.test.event.listener.TestBrokenListener;
 import pairhero.test.event.listener.TestExecutionFinishedListener;
+import pairhero.test.event.listener.TestResolvedListener;
 
 import java.util.logging.Logger;
 
@@ -20,6 +22,8 @@ public class PairHero implements ApplicationComponent {
         LOGGER.info("PairHero Plugin Initialised");
 
         eventBus().register(new TestExecutionFinishedListener());
+        eventBus().register(new TestBrokenListener());
+        eventBus().register(new TestResolvedListener());
     }
 
     @Override

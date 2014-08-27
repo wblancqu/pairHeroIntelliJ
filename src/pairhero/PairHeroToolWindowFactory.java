@@ -11,21 +11,24 @@ import com.intellij.ui.content.ContentFactory;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+
+import pairhero.client.view.StartDialog;
 import pairhero.game.Game;
 import pairhero.game.Programmer;
 import pairhero.game.Scoreboard;
 import pairhero.time.TimeFormatter;
 import pairhero.time.Timer;
-import pairhero.views.StartDialog;
+
+import static pairhero.client.view.Icons.anIcon;
 
 /**
  * IntelliJ version of the <a href="http://www.happyprog.com/pairhero/">PairHero
  * plugin</a>. Ported by <a href="https://github.com/marybel">Marybel Archer</a>
  */
 public class PairHeroToolWindowFactory implements ToolWindowFactory {
-	public static final String BUTTON_LABEL_START = "Start";
+
+    public static final String BUTTON_LABEL_START = "Start";
 	public static final String BUTTON_LABEL_STOP = "Stop";
-	public static final String ICONS_PATH = "icons/";
 
 	private JButton startGameButton;
 	private JPanel myToolWindowContent;
@@ -163,7 +166,7 @@ public class PairHeroToolWindowFactory implements ToolWindowFactory {
 	}
 
 	private void showMessageAndUpdateScore(String imageKey, long score) {
-		updateMessage(messageLabel, getImageIcon(imageKey));
+		updateMessage(messageLabel, anIcon(imageKey));
 		updateScore(score);
 		messageDelayCounter = 3;
 	}
@@ -174,7 +177,7 @@ public class PairHeroToolWindowFactory implements ToolWindowFactory {
 
 	private void updateMessageToDefault() {
 		if (messageDelayCounter < 0) {
-			updateMessage(messageLabel, getImageIcon("blank"));
+			updateMessage(messageLabel, anIcon("blank"));
 		}
 		messageDelayCounter--;
 	}
@@ -194,11 +197,15 @@ public class PairHeroToolWindowFactory implements ToolWindowFactory {
 		}
 	}
 
-	private ImageIcon getImageIcon(String imageName) {
-		return new ImageIcon(getClass().getResource(ICONS_PATH + imageName + ".png"));
-	}
-
 	public boolean isGameOngoing() {
 		return game != null && game.isOnGoing();
 	}
+
+    public void onResolvedTest() {
+        onGreenTest();
+    }
+
+    public void onBrokenTest() {
+        onSwitchRole();
+    }
 }
