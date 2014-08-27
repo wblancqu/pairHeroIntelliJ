@@ -4,9 +4,8 @@ import com.google.common.base.Optional;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.unitils.inject.annotation.InjectIntoByType;
-import org.unitils.inject.annotation.TestedObject;
 import pairhero.AbstractTest;
 import pairhero.event.Event;
 import pairhero.event.EventBus;
@@ -28,14 +27,12 @@ public class TestExecutionFinishedListenerTest extends AbstractTest {
 
     private static final Optional<ExecutedTest> NO_PREVIOUS_EXECUTION = Optional.<ExecutedTest>absent();
 
-    @TestedObject
+    @InjectMocks
     private TestExecutionFinishedListener listener;
 
     @Mock
-    @InjectIntoByType
     private ExecutedTestStore store;
     @Mock
-    @InjectIntoByType
     private EventBus eventBus;
 
     @Mock

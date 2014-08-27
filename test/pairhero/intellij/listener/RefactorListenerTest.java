@@ -3,9 +3,8 @@ package pairhero.intellij.listener;
 import com.intellij.openapi.project.Project;
 import com.intellij.usageView.UsageInfo;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.unitils.inject.annotation.InjectIntoByType;
-import org.unitils.inject.annotation.TestedObject;
 import pairhero.AbstractTest;
 import pairhero.event.EventBus;
 import pairhero.refactoring.event.RefactoringPerformed;
@@ -16,11 +15,10 @@ import static org.mockito.Mockito.verify;
 
 public class RefactorListenerTest extends AbstractTest {
 
-    @TestedObject
+    @InjectMocks
     private RefactorListener listener;
 
     @Mock
-    @InjectIntoByType
     private EventBus eventBus;
 
     @Mock

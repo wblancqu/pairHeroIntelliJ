@@ -1,9 +1,8 @@
 package pairhero.test.event.listener;
 
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.unitils.inject.annotation.InjectIntoByType;
-import org.unitils.inject.annotation.TestedObject;
 import pairhero.AbstractTest;
 import pairhero.client.presenter.Presenter;
 import pairhero.event.Event;
@@ -14,11 +13,10 @@ import static org.mockito.Mockito.verify;
 
 public class TestResolvedListenerTest extends AbstractTest {
 
-    @TestedObject
+    @InjectMocks
     private TestResolvedListener listener;
 
     @Mock
-    @InjectIntoByType
     private Presenter presenter;
 
     @Mock

@@ -1,16 +1,17 @@
 package pairhero.intellij.listener;
 
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.usageView.UsageInfo;
-import pairhero.PairHeroToolWindowFactory;
 import pairhero.event.EventBus;
 import pairhero.refactoring.event.RefactoringPerformed;
 
 public class RefactorListener implements com.intellij.refactoring.RefactoringHelper {
 
     private EventBus eventBus;
-    private PairHeroToolWindowFactory pairHeroToolWindowFactory;
+
+    public RefactorListener(EventBus eventBus) {
+        this.eventBus = eventBus;
+    }
 
 	@Override
 	public Object prepareOperation(UsageInfo[] usageInfos) {
@@ -21,11 +22,4 @@ public class RefactorListener implements com.intellij.refactoring.RefactoringHel
 	public void performOperation(Project project, Object operationData) {
         eventBus.post(new RefactoringPerformed());
 	}
-
-    private EventBus eventBus() {
-        if(eventBus == null) {
-            eventBus = ServiceManager.getService(EventBus.class);
-        }
-        return eventBus;
-    }
 }

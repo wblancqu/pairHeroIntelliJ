@@ -1,6 +1,5 @@
 package pairhero.test.event.listener;
 
-import com.intellij.openapi.components.ServiceManager;
 import pairhero.client.presenter.Presenter;
 import pairhero.event.Event;
 import pairhero.event.Listener;
@@ -10,6 +9,10 @@ public class TestBrokenListener implements Listener<TestBroken> {
 
     private Presenter presenter;
 
+    public TestBrokenListener(Presenter presenter) {
+        this.presenter = presenter;
+    }
+
     @Override
     public boolean canHandle(Event event) {
         return event instanceof TestBroken;
@@ -17,13 +20,6 @@ public class TestBrokenListener implements Listener<TestBroken> {
 
     @Override
     public void handle(TestBroken event) {
-        presenter().onBrokenTest();
-    }
-
-    private Presenter presenter() {
-        if (presenter == null) {
-            presenter = ServiceManager.getService(Presenter.class);
-        }
-        return presenter;
+        presenter.onBrokenTest();
     }
 }

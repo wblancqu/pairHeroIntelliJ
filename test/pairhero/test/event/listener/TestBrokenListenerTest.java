@@ -1,9 +1,8 @@
 package pairhero.test.event.listener;
 
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.unitils.inject.annotation.InjectIntoByType;
-import org.unitils.inject.annotation.TestedObject;
 import pairhero.AbstractTest;
 import pairhero.client.presenter.Presenter;
 import pairhero.event.Event;
@@ -14,11 +13,10 @@ import static org.mockito.Mockito.verify;
 
 public class TestBrokenListenerTest extends AbstractTest {
 
-    @TestedObject
+    @InjectMocks
     private TestBrokenListener listener;
 
     @Mock
-    @InjectIntoByType
     private Presenter presenter;
 
     @Mock
@@ -30,6 +28,7 @@ public class TestBrokenListenerTest extends AbstractTest {
 
         verify(presenter).onBrokenTest();
     }
+
     @Test
     public void canHandle() {
         assertThat(listener.canHandle(new TestBroken())).isTrue();
@@ -37,6 +36,7 @@ public class TestBrokenListenerTest extends AbstractTest {
 
     @Test
     public void cantHandle() {
-        assertThat(listener.canHandle(new Event(){})).isFalse();
+        assertThat(listener.canHandle(new Event() {
+        })).isFalse();
     }
 }

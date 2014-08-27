@@ -26,5 +26,8 @@
         <applicationService serviceInterface="pairhero.test.event.TestExecutionFinishedFactory" serviceImplementation="pairhero.test.event.TestExecutionFinishedFactory" />
         <applicationService serviceInterface="pairhero.test.ExecutedTestStore" serviceImplementation="pairhero.test.ExecutedTestStore"/>
         <applicationService serviceInterface="pairhero.client.presenter.Presenter" serviceImplementation="pairhero.client.presenter.Presenter"/>
+        <applicationService serviceInterface="pairhero.test.event.listener.TestBrokenListener" serviceImplementation="pairhero.test.event.listener.TestBrokenListener"/>
+        <applicationService serviceInterface="pairhero.test.event.listener.TestExecutionFinishedListener" serviceImplementation="pairhero.test.event.listener.TestExecutionFinishedListener"/>
+        <applicationService serviceInterface="pairhero.test.event.listener.TestResolvedListener" serviceImplementation="pairhero.test.event.listener.TestResolvedListener"/>
     </extensions>
 </idea-plugin>

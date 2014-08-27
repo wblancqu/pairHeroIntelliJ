@@ -1,7 +1,6 @@
 package pairhero.test.event.listener;
 
 import com.google.common.base.Optional;
-import com.intellij.openapi.components.ServiceManager;
 import pairhero.event.Event;
 import pairhero.event.EventBus;
 import pairhero.event.Listener;
@@ -16,6 +15,11 @@ public class TestExecutionFinishedListener implements Listener<TestExecutionFini
     private EventBus eventBus;
     private ExecutedTestStore store;
 
+    public TestExecutionFinishedListener(EventBus eventBus, ExecutedTestStore store) {
+        this.eventBus = eventBus;
+        this.store = store;
+    }
+
     @Override
     public boolean canHandle(Event event) {
         return event instanceof TestExecutionFinished;
@@ -24,7 +28,7 @@ public class TestExecutionFinishedListener implements Listener<TestExecutionFini
     @Override
     public void handle(TestExecutionFinished event) {
         for (ExecutedTest current : event.getTests()) {
-            Optional<ExecutedTest> previous = store().previousExecution(current);
+            Optional<ExecutedTest> previous = store.previousExecution(current);
             if (previous.isPresent()) {
                 handlePrevious(previous.get(), current);
             } else {
@@ -36,11 +40,11 @@ public class TestExecutionFinishedListener implements Listener<TestExecutionFini
     private void handlePrevious(ExecutedTest previous, ExecutedTest current) {
         if (hasBeenResolved(previous, current)) {
             previous.resolved();
-            eventBus().post(new TestResolved());
+            eventBus.post(new TestResolved());
         }
         if (hasBeenBroken(previous, current)) {
             previous.broken();
-            eventBus().post(new TestBroken());
+            eventBus.post(new TestBroken());
         }
     }
 
@@ -53,23 +57,9 @@ public class TestExecutionFinishedListener implements Listener<TestExecutionFini
     }
 
     private void handleCurrrent(ExecutedTest current) {
-        store().save(current);
+        store.save(current);
         if (current.isBroken()) {
-            eventBus().post(new TestBroken());
+            eventBus.post(new TestBroken());
         }
-    }
-
-    private EventBus eventBus() {
-        if (eventBus == null) {
-            eventBus = ServiceManager.getService(EventBus.class);
-        }
-        return eventBus;
-    }
-
-    private ExecutedTestStore store() {
-        if (store == null) {
-            store = ServiceManager.getService(ExecutedTestStore.class);
-        }
-        return store;
     }
 }
