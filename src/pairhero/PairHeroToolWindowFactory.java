@@ -8,10 +8,13 @@ import com.intellij.openapi.wm.ToolWindowEP;
 import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+import pairhero.client.view.Icons;
+import pairhero.client.view.PopUpNotification;
 import pairhero.client.view.StartDialog;
 import pairhero.game.Game;
 import pairhero.game.Programmer;
@@ -55,8 +58,10 @@ public class PairHeroToolWindowFactory implements ToolWindowFactory {
 	private Programmer leftProgrammer;
 	private Programmer rightProgrammer;
 	private int messageDelayCounter;
+    private JFrame frame;
+    private PopUpNotification popUpNotification;
 
-	public PairHeroToolWindowFactory() {
+    public PairHeroToolWindowFactory() {
 		scoreboard = new Scoreboard();
 
 		startGameButton.addActionListener(new ActionListener() {
@@ -90,8 +95,9 @@ public class PairHeroToolWindowFactory implements ToolWindowFactory {
 		ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
 		Content content = contentFactory.createContent(myToolWindowContent, "", false);
 		toolWindow.getContentManager().addContent(content);
+        frame = (JFrame)toolWindow.getComponent().getRootPane().getParent().getParent();
 
-		leftProgrammer = new Programmer(leftProgrammerPanel, leftPlayerName, leftAvatar, leftRoleLabel,
+        leftProgrammer = new Programmer(leftProgrammerPanel, leftPlayerName, leftAvatar, leftRoleLabel,
 				leftTimeAtKeyboardLabel);
 		rightProgrammer = new Programmer(rightProgrammerPanel, rightPlayerName, rightAvatar, rightRoleLabel,
 				rightTimeAtKeyboardLabel);
@@ -151,11 +157,12 @@ public class PairHeroToolWindowFactory implements ToolWindowFactory {
 	}
 
 	public void onSwitchRole() {
+        showNotification(getSwitchRoleImage());
 		game.onSwitchRole();
 		showMessageAndUpdateScore(getSwitchRoleImage(), scoreboard.getScore());
 	}
 
-	public void onRefactoring() {
+    public void onRefactoring() {
 		scoreboard.addRefactoring();
 		showMessageAndUpdateScore("refactor", scoreboard.getScore());
 	}
@@ -166,7 +173,7 @@ public class PairHeroToolWindowFactory implements ToolWindowFactory {
 	}
 
 	private void showMessageAndUpdateScore(String imageKey, long score) {
-		updateMessage(messageLabel, anIcon(imageKey));
+		//updateMessage(messageLabel, anIcon(imageKey));
 		updateScore(score);
 		messageDelayCounter = 3;
 	}
@@ -177,7 +184,8 @@ public class PairHeroToolWindowFactory implements ToolWindowFactory {
 
 	private void updateMessageToDefault() {
 		if (messageDelayCounter < 0) {
-			updateMessage(messageLabel, anIcon("blank"));
+			//updateMessage(messageLabel, anIcon("blank"));
+            removeNotification();
 		}
 		messageDelayCounter--;
 	}
@@ -189,13 +197,24 @@ public class PairHeroToolWindowFactory implements ToolWindowFactory {
 	private String getSwitchRoleImage() {
 		int multiplier = scoreboard.getLastMultiplier();
 		if (multiplier == Scoreboard.MULTIPLIER_4X) {
-			return "switch-4x";
+			return "switch-4x-noborder";
 		} else if (multiplier == Scoreboard.MULTIPLIER_2X) {
-			return "switch-2x";
+			return "switch-2x-noborder";
 		} else {
-			return "switch";
+			return "switch-noborder";
 		}
 	}
+
+    private void showNotification(String icon) {
+        popUpNotification = new PopUpNotification(frame, anIcon(icon), frame);
+        popUpNotification.setVisible(true);
+    }
+
+    private void removeNotification() {
+        if(popUpNotification != null && popUpNotification.isVisible()) {
+            popUpNotification.dispose();
+        }
+    }
 
 	public boolean isGameOngoing() {
 		return game != null && game.isOnGoing();
