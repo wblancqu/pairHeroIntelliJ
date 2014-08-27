@@ -1,9 +1,9 @@
 package pairhero
 
 /*import com.intellij.execution.testframework.AbstractTestProxy
-import pairhero.intellij.listener.TestExecutionListener
-import pairhero.intellij.listener.TestExecutionListener
-import pairhero.intellij.listener.TestExecutionListener
+import pairhero.intellij.nextListener.TestExecutionListener
+import pairhero.intellij.nextListener.TestExecutionListener
+import pairhero.intellij.nextListener.TestExecutionListener
 import spock.lang.Specification
 
 class JUnitListenerSpec extends Specification {

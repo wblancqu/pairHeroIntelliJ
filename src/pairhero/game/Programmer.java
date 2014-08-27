@@ -3,10 +3,10 @@ package pairhero.game;
 import java.awt.*;
 import javax.swing.*;
 
-import pairhero.client.view.Icons;
+import pairhero.client.view.player.Player;
 import pairhero.time.TimeFormatter;
 
-import static pairhero.client.view.Icons.anIcon;
+import static pairhero.client.view.util.Icons.anIcon;
 
 public class Programmer {
 
@@ -20,8 +20,9 @@ public class Programmer {
 	private Role currentRole;
 	private int timeAtKeyboard;
 	private JPanel panel;
+    private Player player;
 
-	enum Role {
+    enum Role {
 		Driving, Observing
 	}
 
@@ -42,10 +43,6 @@ public class Programmer {
 	public void observe() {
 		currentRole = Role.Observing;
 		updateRole(currentRole);
-	}
-
-	public void setName(String playerName) {
-		nameLabel.setText(playerName);
 	}
 
 	public void switchRole() {
@@ -82,7 +79,17 @@ public class Programmer {
 		updateTimeAtKeyboard(timeAtKeyboard);
 	}
 
-	public void setAvatar(final String avatarImage) {
-		avatar.setIcon(anIcon(avatarImage));
+    public void setPlayer(Player player) {
+        this.player = player;
+        setName(player.getName());
+        setAvatar(player.getAvatar());
+    }
+
+    private void setName(String playerName) {
+        nameLabel.setText(playerName);
+    }
+
+	private void setAvatar(final ImageIcon avatarImage) {
+		avatar.setIcon(avatarImage);
 	}
 }

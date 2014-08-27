@@ -13,16 +13,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-import pairhero.client.view.Icons;
 import pairhero.client.view.PopUpNotification;
-import pairhero.client.view.StartDialog;
+import pairhero.client.view.player.StartDialog;
 import pairhero.game.Game;
 import pairhero.game.Programmer;
 import pairhero.game.Scoreboard;
 import pairhero.time.TimeFormatter;
 import pairhero.time.Timer;
 
-import static pairhero.client.view.Icons.anIcon;
+import static pairhero.client.view.util.Icons.anIcon;
 
 /**
  * IntelliJ version of the <a href="http://www.happyprog.com/pairhero/">PairHero
@@ -123,10 +122,8 @@ public class PairHeroToolWindowFactory implements ToolWindowFactory {
 			dialog.buttonPressed(dialog.getExitCode());
 			leftProgrammer.resetStats();
 			rightProgrammer.resetStats();
-			leftProgrammer.setName(dialog.getPlayerOneName());
-			rightProgrammer.setName(dialog.getPlayerTwoName());
-			leftProgrammer.setAvatar(dialog.getPlayerOneAvatar());
-			rightProgrammer.setAvatar(dialog.getPlayerTwoAvatar());
+			leftProgrammer.setPlayer(dialog.getPlayerOne());
+            rightProgrammer.setPlayer(dialog.getPlayerTwo());
 			scoreboard.resetStats();
 			updateScore(scoreboard.getScore());
 
