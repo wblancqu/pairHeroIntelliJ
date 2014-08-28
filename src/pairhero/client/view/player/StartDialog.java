@@ -6,19 +6,16 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.*;
 
-import static java.awt.BorderLayout.CENTER;
-import static java.awt.BorderLayout.EAST;
-import static java.awt.BorderLayout.WEST;
+import static java.awt.BorderLayout.*;
 import static javax.swing.Box.createRigidArea;
-import static javax.swing.SwingConstants.VERTICAL;
 import static pairhero.client.view.util.Icons.anIcon;
 
 public class StartDialog extends DialogWrapper {
 
     private Player playerOne, playerTwo;
 
-    private PlayerConfiguration playerOneConfig;
-    private PlayerConfiguration playerTwoConfig;
+    private PlayerConfigurationPanel playerOneConfig;
+    private PlayerConfigurationPanel playerTwoConfig;
 
     public StartDialog() {
         super(false);
@@ -30,10 +27,10 @@ public class StartDialog extends DialogWrapper {
 	protected JComponent createCenterPanel() {
         JPanel content = new JPanel(new BorderLayout());
 		//showLogo(composite);
-        playerOneConfig = new PlayerConfiguration("Player 1");
+        playerOneConfig = new PlayerConfigurationPanel("Player 1");
         content.add(playerOneConfig, WEST);
         addSeparator(content);
-        playerTwoConfig = new PlayerConfiguration("Player 2");
+        playerTwoConfig = new PlayerConfigurationPanel("Player 2");
         content.add(playerTwoConfig, EAST);
 		return content;
 	}

@@ -1,7 +1,5 @@
 package pairhero.client.view.player;
 
-import org.apache.commons.lang.math.RandomUtils;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,13 +14,13 @@ import static pairhero.client.view.player.IconSet.HAPPY_THREE_FRIENDS;
 import static pairhero.client.view.util.Icons.PATH;
 import static pairhero.client.view.util.Icons.anIcon;
 
-public class AvatarSelection extends JPanel {
+public class AvatarSelectionPanel extends JPanel {
 
     private List<ImageIcon> players = new ArrayList<ImageIcon>();
     private ImageIcon selectedAvatar;
     private JLabel selectedPlayerLabel;
 
-    public AvatarSelection() {
+    public AvatarSelectionPanel() {
         build();
         updatePlayerSet(HAPPY_THREE_FRIENDS);
     }
@@ -47,7 +45,7 @@ public class AvatarSelection extends JPanel {
     }
 
     private void loadPlayers(IconSet iconSet) {
-        String folder = AvatarSelection.class.getResource(PATH + iconSet.getPath()).getPath();
+        String folder = AvatarSelectionPanel.class.getResource(PATH + iconSet.getPath()).getPath();
         File[] players = new File(folder).listFiles();
         this.players.clear();
         for (File player : players) {

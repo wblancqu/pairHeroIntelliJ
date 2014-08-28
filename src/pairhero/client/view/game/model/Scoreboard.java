@@ -1,4 +1,4 @@
-package pairhero.game;
+package pairhero.client.view.game.model;
 
 public class Scoreboard {
 
@@ -60,7 +60,7 @@ public class Scoreboard {
 		return refactoringCounter;
 	}
 
-	public void onTimeChange() {
+	public void timeProgress() {
 		secondsSinceLastSwitch++;
 	}
 

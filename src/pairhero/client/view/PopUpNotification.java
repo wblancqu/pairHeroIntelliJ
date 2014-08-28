@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class PopUpNotification extends JWindow {
 
-    public PopUpNotification(Frame owner, ImageIcon icon, Component sourceComponent) {
+    public PopUpNotification(Frame owner, ImageIcon icon) {
         super(owner);
         setBackground(new Color(0, 0, 0, 0));
         setAlwaysOnTop(true);

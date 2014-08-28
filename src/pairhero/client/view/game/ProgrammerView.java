@@ -1,4 +1,4 @@
-package pairhero.game;
+package pairhero.client.view.game;
 
 import java.awt.*;
 import javax.swing.*;
@@ -8,7 +8,7 @@ import pairhero.time.TimeFormatter;
 
 import static pairhero.client.view.util.Icons.anIcon;
 
-public class Programmer {
+public class ProgrammerView {
 
 	private static Color DRIVER_COLOR = new Color(58, 170, 53);
 	private static Color OBSERVER_COLOR = new Color(218, 218, 218);
@@ -26,8 +26,8 @@ public class Programmer {
 		Driving, Observing
 	}
 
-	public Programmer(JPanel programmerPanel, JLabel nameLabel, JLabel avatar, JLabel roleLabel,
-			JLabel timeAtKeyboardLabel) {
+	public ProgrammerView(JPanel programmerPanel, JLabel nameLabel, JLabel avatar, JLabel roleLabel,
+                          JLabel timeAtKeyboardLabel) {
 		this.panel = programmerPanel;
 		this.nameLabel = nameLabel;
 		this.avatar = avatar;

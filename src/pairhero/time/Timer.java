@@ -3,21 +3,22 @@ package pairhero.time;
 import com.intellij.util.ui.UIUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import pairhero.game.Game;
+
+import pairhero.client.presenter.Presenter;
 
 public class Timer implements Runnable {
 
 	private static final int ONE_SECOND = 1000;
 	public static final int _25_MINS = 1500;
 
-	private Game game;
 	private int countdownInSeconds = _25_MINS;
 	private boolean stopTimerSignal;
 	private boolean hasEverBeenStarted = false;
+    private Presenter presenter;
 
-	public void start(Game game) {
-		this.game = game;
-		this.hasEverBeenStarted = true;
+    public void start(Presenter presenter) {
+        this.presenter = presenter;
+        this.hasEverBeenStarted = true;
 		run();
 	}
 
@@ -25,7 +26,7 @@ public class Timer implements Runnable {
 	public void run() {
 		countdownInSeconds--;
 
-		game.onTimeChange(countdownInSeconds);
+        presenter.onTimeChange(countdownInSeconds);
 
 		if (!stopTimerSignal) {
 			reRunInASecond();

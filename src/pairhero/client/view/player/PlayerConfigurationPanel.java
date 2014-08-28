@@ -6,19 +6,19 @@ import java.awt.*;
 
 import static javax.swing.BoxLayout.Y_AXIS;
 
-public class PlayerConfiguration extends JPanel {
+public class PlayerConfigurationPanel extends JPanel {
 
-    private final AvatarSelection avatarSelection;
+    private final AvatarSelectionPanel avatarSelectionPanel;
     private final JTextField playerNameField;
 
-    public PlayerConfiguration(String name) {
+    public PlayerConfigurationPanel(String name) {
         setLayout(new BoxLayout(this, Y_AXIS));
         JLabel title = new JLabel(name);
         title.setAlignmentX(CENTER_ALIGNMENT);
         add(title);
 
-        avatarSelection = new AvatarSelection();
-        add(avatarSelection);
+        avatarSelectionPanel = new AvatarSelectionPanel();
+        add(avatarSelectionPanel);
 
         playerNameField = new JTextField();
         playerNameField.setPreferredSize(new Dimension(150, 15));
@@ -26,6 +26,6 @@ public class PlayerConfiguration extends JPanel {
     }
 
     public Player getPlayer() {
-        return new Player(playerNameField.getText(), avatarSelection.getAvatar());
+        return new Player(playerNameField.getText(), avatarSelectionPanel.getAvatar());
     }
 }
