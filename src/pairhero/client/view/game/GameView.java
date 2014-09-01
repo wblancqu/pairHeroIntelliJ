@@ -2,46 +2,56 @@ package pairhero.client.view.game;
 
 import com.intellij.openapi.ui.DialogWrapper;
 import pairhero.client.view.player.StartDialog;
+import pairhero.client.view.util.Icons;
 import pairhero.time.TimeFormatter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static pairhero.client.view.util.Icons.anIcon;
+
 public class GameView {
 
-    private static final String BUTTON_LABEL_START = "Start";
-    private static final String BUTTON_LABEL_STOP = "Stop";
+    /*public static final ImageIcon START_ICON = anIcon("button/start");
+    public static final ImageIcon STOP_ICON = anIcon("button/stop");
 
     private final JFrame parent;
     private final ProgrammerView leftProgrammer,  rightProgrammer;
     private final JLabel scoreLabel;
     private final JLabel timerLabel;
-    private final JButton startGameButton;
+    //private final Controls controls;
 
-    public GameView(JFrame parent, JLabel scoreLabel, JLabel timerLabel, JButton startGameButton, ProgrammerView leftProgrammer, ProgrammerView rightProgrammer) {
+    public GameView(JFrame parent, JLabel scoreLabel, JLabel timerLabel, ProgrammerView leftProgrammer, ProgrammerView rightProgrammer) {
         this.parent = parent;
         this.scoreLabel = scoreLabel;
         this.timerLabel = timerLabel;
-        this.startGameButton = startGameButton;
+        //this.controls = controls;
         this.leftProgrammer = leftProgrammer;
         this.rightProgrammer = rightProgrammer;
+        enableRestart();
     }
 
     public void addListener(final ActionListener startListener, final ActionListener stopListener) {
+       *//* final JButton startGameButton = controls.getStartStop();
         startGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (startGameButton.getText().equals(BUTTON_LABEL_START)) {
+                if (startGameButton.getIcon().equals(START_ICON)) {
                     if (choosePlayers()) {
                         startListener.actionPerformed(e);
-                        startGameButton.setText(BUTTON_LABEL_STOP);
+                        enableStop();
                     }
                 } else {
                     stopListener.actionPerformed(e);
                 }
             }
-        });
+        });*//*
+    }
+
+    private void enableStop() {
+        *//*controls.getStartStop().setIcon(STOP_ICON);
+        controls.getPause().setEnabled(true);*//*
     }
 
     private boolean choosePlayers() {
@@ -82,7 +92,7 @@ public class GameView {
 
     public void onGameFinished() {
         // TODO: Dialog to show score???
-        startGameButton.setText(BUTTON_LABEL_START);
+        enableRestart();
     }
 
     public void updateScore(long score) {
@@ -94,6 +104,7 @@ public class GameView {
     }
 
     public void enableRestart() {
-        startGameButton.setText(BUTTON_LABEL_START);
-    }
+       // controls.getStartStop().setIcon(START_ICON);
+//        controls.getPause().setEnabled(false);
+    }*/
 }

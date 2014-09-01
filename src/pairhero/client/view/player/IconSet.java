@@ -2,7 +2,7 @@ package pairhero.client.view.player;
 
 public enum IconSet {
 
-    HAPPY_THREE_FRIENDS("players/happy/");
+    HAPPY_TREE_FRIENDS("players/happy/");
 
     private String path;
 

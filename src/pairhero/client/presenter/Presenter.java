@@ -1,74 +1,137 @@
 package pairhero.client.presenter;
 
+import pairhero.client.action.Actions;
+import pairhero.client.view.PairHeroView;
 import pairhero.client.view.PopUpNotification;
-import pairhero.client.view.game.GameView;
 import pairhero.client.view.game.model.Scoreboard;
+import pairhero.client.view.player.Player;
+import pairhero.client.view.player.Role;
+import pairhero.client.view.player.StartDialog;
 import pairhero.time.Timer;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import static com.intellij.openapi.ui.DialogWrapper.OK_EXIT_CODE;
+import static pairhero.client.view.player.Role.DRIVING;
+import static pairhero.client.view.player.Role.OBSERVING;
 import static pairhero.client.view.util.Icons.anIcon;
 
 public class Presenter {
 
     private Timer timer;
-    private GameView view;
+    private PairHeroView view;
+    private Actions actions;
+    private Player playerOne, playerTwo;
+
     private Scoreboard scoreboard = new Scoreboard();
     private PopUpNotification popUpNotification;
     private int messageDelayCounter;
+    private static final int _25_MINS = 1500;
+    private int countdownInSeconds = _25_MINS;
+
+    public void initialise(PairHeroView view, Actions actions) {
+        this.view = view;
+        this.actions = actions;
+    }
 
     public void onResolvedTest() {
-        if(isOnGoing()) {
+        if (isOnGoing()) {
             onGreenTest();
         }
     }
 
     public void onBrokenTest() {
-        if(isOnGoing()) {
+        if (isOnGoing()) {
             onSwitchRole();
         }
     }
 
-    private void start() {
-        timer = new Timer();
-        timer.start(this);
-        view.leftSideDriving();
-}
-
-    private void stop() {
-        timer.stop();
-        view.enableRestart();
+    public void start() {
+        if (noPlayers()) {
+            if (choosePlayers()) {
+                doStart();
+            }
+        } else {
+            doStart();
+        }
     }
 
-    private void restart() {
+    private void doStart() {
+        if (!isOnGoing()) {
+            timer = new Timer();
+            timer.start(this, countdownInSeconds);
+            /*playerOne.setRole(DRIVING);
+            playerTwo.setRole(OBSERVING);
+            view.updateRoles();*/
+            actions.running();
+        }
+    }
 
+    public void pause() {
+        countdownInSeconds = timer.getCountDownInSeconds();
+        timer.stop();
+        actions.paused();
+    }
+
+    public void stop() {
+        pause();
+        doReset();
+    }
+
+    private void finish() {
+        pause();
+        countdownInSeconds = _25_MINS;
+        view.resetTime();
+    }
+
+    public void reset() {
+        stop();
+        choosePlayers();
+        start();
+    }
+
+    private void doReset() {
+        countdownInSeconds = _25_MINS;
+        scoreboard.resetStats();
+        view.updateScore(scoreboard.getScore());
+        view.resetTime();
+        actions.stopped();
     }
 
     public void onTimeChange(int seconds) {
         scoreboard.timeProgress();
-        view.timeProgress(seconds);
+        view.onTimeChange(seconds);
         updateMessageToDefault();
         if (seconds <= 0) {
-            stop();
-            view.onGameFinished();
+            finish();
+            // this is done with actions: enable/disable buttons view.onGameFinished();
             return;
         }
     }
 
     public void onSwitchRole() {
-        showNotification(getSwitchRoleImage());
-        view.onSwitchRole();
-        scoreboard.addSwitch();
+        doSwitch();
 
+        showNotification(getSwitchRoleImage());
+        scoreboard.addSwitch();
         showMessageAndUpdateScore(getSwitchRoleImage(), scoreboard.getScore());
     }
 
-    public void onRefactoring() {
-        scoreboard.addRefactoring();
-        view.onRefactoring();
+    public void forceSwitch() {
+        doSwitch();
+        scoreboard.addForceSwitch();
+        showMessageAndUpdateScore("", scoreboard.getScore());
+    }
 
-        showMessageAndUpdateScore("refactor", scoreboard.getScore());
+    private void doSwitch() {
+        playerOne.switchRole();
+        playerTwo.switchRole();
+        view.updateRoles();
+    }
+
+    public void onRefactoring() {
+        //scoreboard.addRefactoring();
+        //view.onRefactoring();
+
+        //showMessageAndUpdateScore("refactor", scoreboard.getScore());
     }
 
     private void onGreenTest() {
@@ -77,32 +140,8 @@ public class Presenter {
         showMessageAndUpdateScore("green", scoreboard.getScore());
     }
 
-    public void setView(GameView view) {
-        this.view = view;
-        this.view.addListener(startGame(), stopGame());
-    }
-
     private boolean isOnGoing() {
         return timer != null && timer.isRunning();
-    }
-
-    private ActionListener startGame() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                reset();
-                start();
-            }
-        };
-    }
-
-    private ActionListener stopGame() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                stop();
-            }
-        };
     }
 
     private void showMessageAndUpdateScore(String icon, long score) {
@@ -129,18 +168,36 @@ public class Presenter {
     }
 
     private void showNotification(String icon) {
-        popUpNotification = new PopUpNotification(view.getParent(), anIcon(icon));
+        popUpNotification = new PopUpNotification(view.getFrame(), anIcon(icon));
         popUpNotification.setVisible(true);
     }
 
     private void removeNotification() {
-        if(popUpNotification != null && popUpNotification.isVisible()) {
+        if (popUpNotification != null && popUpNotification.isVisible()) {
             popUpNotification.dispose();
         }
     }
 
-    private void reset() {
-        scoreboard.resetStats();
-        view.updateScore(scoreboard.getScore());
+    private boolean noPlayers() {
+        return playerOne == null || playerTwo == null;
+    }
+
+    private boolean choosePlayers() {
+        StartDialog dialog = new StartDialog();
+        dialog.show();
+
+        if (dialog.getExitCode() == OK_EXIT_CODE) {
+            dialog.buttonPressed(dialog.getExitCode());
+            playerOne = dialog.getPlayerOne();
+            playerTwo = dialog.getPlayerTwo();
+            view.setPlayerOne(playerOne);
+            view.setPlayerTwo(playerTwo);
+            playerOne.setRole(DRIVING);
+            playerTwo.setRole(OBSERVING);
+            view.updateRoles();
+            return true;
+        }
+
+        return false;
     }
 }

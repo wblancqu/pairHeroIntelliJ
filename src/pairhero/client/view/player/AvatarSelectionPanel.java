@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 import static javax.swing.BoxLayout.X_AXIS;
-import static pairhero.client.view.player.IconSet.HAPPY_THREE_FRIENDS;
+import static pairhero.client.view.player.IconSet.HAPPY_TREE_FRIENDS;
 import static pairhero.client.view.util.Icons.PATH;
 import static pairhero.client.view.util.Icons.anIcon;
 
@@ -22,7 +22,7 @@ public class AvatarSelectionPanel extends JPanel {
 
     public AvatarSelectionPanel() {
         build();
-        updatePlayerSet(HAPPY_THREE_FRIENDS);
+        updatePlayerSet(HAPPY_TREE_FRIENDS);
     }
 
     private void build() {

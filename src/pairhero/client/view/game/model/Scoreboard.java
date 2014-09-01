@@ -3,13 +3,14 @@ package pairhero.client.view.game.model;
 public class Scoreboard {
 
 	public static final int GREEN_TEST_POINTS = 10;
-	public static final int REFACTORING_POINTS = 2;
+    public static final int REFACTORING_POINTS = 2;
 	public static final int SWITCHING_POINTS = 1;
 	public static final int MULTIPLIER_2X = 2;
 	public static final int MULTIPLIER_4X = 4;
 	public static final int MULTIPLIER_1X = 1;
+    public static final int FORCE_SWITCH_DEDUCTION = 2;
 
-	private long score;
+    private long score;
 	private int secondsSinceLastSwitch;
 
 	private int greenTestsCounter;
@@ -51,6 +52,10 @@ public class Scoreboard {
 
 		secondsSinceLastSwitch = 0;
 	}
+
+    public void addForceSwitch() {
+        score = score - FORCE_SWITCH_DEDUCTION;
+    }
 
 	public int getNumberOfGreenTests() {
 		return greenTestsCounter;
