@@ -6,8 +6,7 @@ import pairhero.client.action.*;
 import pairhero.client.presenter.Presenter;
 import pairhero.client.view.game.PlayerView;
 import pairhero.client.view.game.StatisticsView;
-import pairhero.client.view.player.Player;
-import pairhero.time.TimeFormatter;
+import pairhero.client.model.Player;
 
 import javax.swing.*;
 import java.awt.*;

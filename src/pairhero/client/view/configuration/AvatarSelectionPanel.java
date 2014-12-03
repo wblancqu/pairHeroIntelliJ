@@ -1,16 +1,20 @@
-package pairhero.client.view.player;
+package pairhero.client.view.configuration;
+
+import pairhero.client.view.util.Icons;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
 
 import static javax.swing.BoxLayout.X_AXIS;
-import static pairhero.client.view.player.IconSet.HAPPY_TREE_FRIENDS;
+import static pairhero.client.view.configuration.IconSet.HAPPY_TREE_FRIENDS;
 import static pairhero.client.view.util.Icons.PATH;
 import static pairhero.client.view.util.Icons.anIcon;
 
@@ -45,11 +49,29 @@ public class AvatarSelectionPanel extends JPanel {
     }
 
     private void loadPlayers(IconSet iconSet) {
-        String folder = AvatarSelectionPanel.class.getResource(PATH + iconSet.getPath()).getPath();
-        File[] players = new File(folder).listFiles();
-        this.players.clear();
-        for (File player : players) {
-            this.players.add(anIcon(iconSet.getPath() + player.getName()));
+       // try {
+            Collection<Object> images = imageList(iconSet.getPath());
+            this.players.clear();
+            for (Object image : images) {
+                //URI folder = Icons.class.getResourceAsStream("icons/players/happy/" + image);
+                //File players = new File(folder);
+                this.players.add(anIcon(iconSet.getPath() + image));
+
+            }
+           /* for (File player : players) {
+            }*/
+       /* } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }*/
+    }
+
+    private java.util.Collection<Object> imageList(String path) {
+        try {
+            Properties imageList = new Properties();
+            imageList.load(Icons.class.getResourceAsStream(PATH + path + "images.properties"));
+            return imageList.values();
+        } catch (IOException e) {
+            return new ArrayList<Object>();
         }
     }
 

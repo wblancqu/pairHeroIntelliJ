@@ -8,6 +8,7 @@ import java.util.List;
 
 import static com.google.common.collect.Iterables.tryFind;
 
+//TODO, only keep broken tests
 public class ExecutedTestStore {
 
     private List<ExecutedTest> history = new ArrayList<ExecutedTest>();

@@ -19,7 +19,7 @@
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow id="PairHero" secondary="true" icon="/pairhero/icons/icon.png" anchor="right" factoryClass="pairhero.client.view.PairHeroViewFactory"/>
+        <toolWindow id="PairHero" secondary="true" icon="/pairhero/client/view/util/icons/icon.png" anchor="right" factoryClass="pairhero.client.view.PairHeroViewFactory"/>
         <testStatusListener implementation="pairhero.intellij.listener.TestExecutionListener"/>
         <refactoring.helper implementation="pairhero.intellij.listener.RefactorListener"/>
         <applicationService serviceInterface="pairhero.event.EventBus" serviceImplementation="pairhero.event.EventBus" />

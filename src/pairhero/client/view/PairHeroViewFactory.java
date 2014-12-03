@@ -21,7 +21,7 @@ public class PairHeroViewFactory implements ToolWindowFactory {
 
     @Override
     public void createToolWindowContent(Project project, ToolWindow toolWindow) {
-        final JFrame parent = (JFrame)toolWindow.getComponent().getRootPane().getParent().getParent();
+        final JFrame parent = (JFrame)toolWindow.getComponent().getRootPane().getParent();
         ContentManager contentManager = toolWindow.getContentManager();
         ContentFactory factory = ContentFactory.SERVICE.getInstance();
         contentManager.addContent(factory.createContent(new PairHeroView(parent, presenter), "", false));

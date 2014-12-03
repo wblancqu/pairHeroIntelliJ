@@ -3,15 +3,14 @@ package pairhero.client.presenter;
 import pairhero.client.action.Actions;
 import pairhero.client.view.PairHeroView;
 import pairhero.client.view.PopUpNotification;
-import pairhero.client.view.game.model.Scoreboard;
-import pairhero.client.view.player.Player;
-import pairhero.client.view.player.Role;
-import pairhero.client.view.player.StartDialog;
+import pairhero.client.model.Scoreboard;
+import pairhero.client.model.Player;
+import pairhero.client.view.configuration.PlayerDialog;
 import pairhero.time.Timer;
 
 import static com.intellij.openapi.ui.DialogWrapper.OK_EXIT_CODE;
-import static pairhero.client.view.player.Role.DRIVING;
-import static pairhero.client.view.player.Role.OBSERVING;
+import static pairhero.client.model.Role.DRIVING;
+import static pairhero.client.model.Role.OBSERVING;
 import static pairhero.client.view.util.Icons.anIcon;
 
 public class Presenter {
@@ -58,17 +57,12 @@ public class Presenter {
         if (!isOnGoing()) {
             timer = new Timer();
             timer.start(this, countdownInSeconds);
-            /*playerOne.setRole(DRIVING);
-            playerTwo.setRole(OBSERVING);
-            view.updateRoles();*/
-            actions.running();
         }
     }
 
     public void pause() {
         countdownInSeconds = timer.getCountDownInSeconds();
         timer.stop();
-        actions.paused();
     }
 
     public void stop() {
@@ -93,7 +87,6 @@ public class Presenter {
         scoreboard.resetStats();
         view.updateScore(scoreboard.getScore());
         view.resetTime();
-        actions.stopped();
     }
 
     public void onTimeChange(int seconds) {
@@ -183,7 +176,7 @@ public class Presenter {
     }
 
     private boolean choosePlayers() {
-        StartDialog dialog = new StartDialog();
+        PlayerDialog dialog = new PlayerDialog();
         dialog.show();
 
         if (dialog.getExitCode() == OK_EXIT_CODE) {

@@ -1,4 +1,4 @@
-package pairhero.client.view.player;
+package pairhero.client.view.configuration;
 
 public enum IconSet {
 

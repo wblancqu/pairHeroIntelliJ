@@ -16,7 +16,6 @@ public class StartAction extends AnAction {
     public StartAction(Presenter presenter) {
         super("", "Start Pomodoro", ICON);
         this.presenter = presenter;
-        //setEnabled(true);
     }
 
     @Override

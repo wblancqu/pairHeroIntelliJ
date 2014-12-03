@@ -1,6 +1,6 @@
 package pairhero.client.view.game;
 
-import pairhero.client.view.player.Player;
+import pairhero.client.model.Player;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;

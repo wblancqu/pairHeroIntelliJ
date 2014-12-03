@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 public class Timer implements Runnable {
 
     private static final int ONE_SECOND = 1000;
-    public static final int _25_MINS = 1500;
 
     private int countdownInSeconds;
     private boolean stopTimerSignal;

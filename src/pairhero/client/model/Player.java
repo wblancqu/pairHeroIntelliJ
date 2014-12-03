@@ -1,9 +1,6 @@
-package pairhero.client.view.player;
+package pairhero.client.model;
 
 import javax.swing.*;
-
-import static pairhero.client.view.player.Role.DRIVING;
-import static pairhero.client.view.player.Role.OBSERVING;
 
 public class Player {
 
@@ -25,7 +22,7 @@ public class Player {
     }
 
     public boolean isDriving() {
-        return role == DRIVING;
+        return role == Role.DRIVING;
     }
 
     public void setRole(Role role) {
@@ -34,9 +31,9 @@ public class Player {
 
     public void switchRole() {
         if(isDriving()) {
-            setRole(OBSERVING);
+            setRole(Role.OBSERVING);
         } else {
-            setRole(DRIVING);
+            setRole(Role.DRIVING);
         }
     }
 }

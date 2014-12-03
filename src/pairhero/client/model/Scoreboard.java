@@ -1,4 +1,4 @@
-package pairhero.client.view.game.model;
+package pairhero.client.model;
 
 public class Scoreboard {
 

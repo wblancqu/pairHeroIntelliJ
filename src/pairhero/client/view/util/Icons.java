@@ -1,10 +1,12 @@
 package pairhero.client.view.util;
 
+import com.intellij.openapi.util.IconLoader;
+
 import javax.swing.*;
 
 public class Icons {
 
-    public static final String PATH = "/pairhero/icons/";
+    public static final String PATH = "icons/";
     private static final String EXTENTION = ".png";
 
     public static ImageIcon anIcon(String imageName) {

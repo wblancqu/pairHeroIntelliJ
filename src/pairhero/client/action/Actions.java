@@ -34,32 +34,4 @@ public class Actions extends DefaultActionGroup {
         super.add(resetAction);
         this.resetAction = resetAction;
     }
-
-    public void running() {
-        /*startAction.setEnabled(false);
-        resumeAction.setEnabled(false);
-        pauseAction.setEnabled(true);
-        stopAction.setEnabled(true);
-        forceSwitchAction.setEnabled(true);*/
-    }
-
-    public void paused() {
-        /*resumeAction.setEnabled(true);
-        pauseAction.setEnabled(false);
-        forceSwitchAction.setEnabled(false);*/
-    }
-
-    public void resume() {
-        /*resumeAction.setEnabled(false);
-        pauseAction.setEnabled(true);
-        forceSwitchAction.setEnabled(true);*/
-    }
-
-    public void stopped() {
-        /*startAction.setEnabled(true);
-        resumeAction.setEnabled(false);
-        pauseAction.setEnabled(false);
-        stopAction.setEnabled(false);
-        forceSwitchAction.setEnabled(false);*/
-    }
 }

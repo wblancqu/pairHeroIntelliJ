@@ -1,4 +1,6 @@
-package pairhero.client.view.player;
+package pairhero.client.view.configuration;
+
+import pairhero.client.model.Player;
 
 import javax.swing.*;
 

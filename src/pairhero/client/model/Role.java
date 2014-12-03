@@ -1,4 +1,4 @@
-package pairhero.client.view.player;
+package pairhero.client.model;
 
 public enum Role {
 
